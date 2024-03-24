@@ -11,6 +11,8 @@ import { ChatbotUIContext } from "@/context/context"
 import useHotkey from "@/lib/hooks/use-hotkey"
 import { useTheme } from "next-themes"
 import { useContext } from "react"
+import { useRouter } from "next/router"
+import { useState } from "react"
 
 export default function ChatPage() {
   useHotkey("o", () => handleNewChat())
@@ -24,33 +26,54 @@ export default function ChatPage() {
 
   const { theme } = useTheme()
 
+  function ToggleSwitch() {
+    const [isToggled, setIsToggled] = useState(false)
+    const onToggle = () => setIsToggled(!isToggled)
+
+    return (
+      <label className="switch">
+        <input type="checkbox" checked={isToggled} onChange={onToggle} />
+        <span className="slider round"></span>
+      </label>
+    )
+  }
+
   return (
     <>
-      {chatMessages.length === 0 ? (
-        <div className="relative flex h-full flex-col items-center justify-center">
-          <div className="top-50% left-50% -translate-x-50% -translate-y-50% absolute mb-20">
-            <Brand theme={theme === "dark" ? "dark" : "light"} />
-          </div>
-
-          <div className="absolute left-2 top-2">{/*<QuickSettings />*/}</div>
-
-          <div className="absolute right-2 top-2">
-            <ChatSettings />
-          </div>
-
-          <div className="flex grow flex-col items-center justify-center" />
-
-          <div className="w-[300px] pb-8 sm:w-[400px] md:w-[500px] lg:w-[660px] xl:w-[800px]">
-            <ChatInput />
-          </div>
-
-          <div className="absolute bottom-2 right-2 hidden md:block lg:bottom-4 lg:right-4">
-            <ChatHelp />
-          </div>
+      <div className="relative flex h-full flex-col items-center justify-center">
+        {/* Toggle Switch centered at the top */}
+        <div className="absolute inset-x-0 top-0 flex justify-center">
+          <ToggleSwitch />
         </div>
-      ) : (
-        <ChatUI />
-      )}
+
+        {chatMessages.length === 0 ? (
+          <>
+            <div className="absolute left-1/2 top-1/2 mb-20 -translate-x-1/2 -translate-y-1/2">
+              <Brand theme={theme === "dark" ? "dark" : "light"} />
+            </div>
+
+            <div className="absolute left-2 top-2">
+              {/* <QuickSettings /> */}
+            </div>
+
+            <div className="absolute right-2 top-2">
+              <ChatSettings />
+            </div>
+
+            <div className="flex grow flex-col items-center justify-center"></div>
+
+            <div className="w-[300px] pb-8 sm:w-[400px] md:w-[500px] lg:w-[660px] xl:w-[800px]">
+              <ChatInput />
+            </div>
+
+            <div className="absolute bottom-2 right-2 hidden md:block lg:bottom-4 lg:right-4">
+              <ChatHelp />
+            </div>
+          </>
+        ) : (
+          <ChatUI />
+        )}
+      </div>
     </>
   )
 }
