@@ -1,27 +1,33 @@
-import { useRouter } from "next/navigation"
+"use client"
+
 import { useState } from "react"
 import { FC } from "react"
 
-export const ToggleSwitch: FC = function () {
-  const [isToggled, setIsToggled] = useState(false)
-  const router = useRouter()
-  const handleToggle = () => setIsToggled(!isToggled)
+interface ToggleSwitchProps {
+  onToggle: (isToggled: boolean) => void
+}
 
-  // Assuming your chat and notes pages have routes '/chat' and '/notes'
-  if (!isToggled) {
-    router.push("/notes")
-  } else {
-    router.push("/chat")
+export const ToggleSwitch: FC<ToggleSwitchProps> = ({ onToggle }) => {
+  const [isToggled, setIsToggled] = useState(false)
+
+  const handleToggle = () => {
+    setIsToggled(!isToggled)
+    onToggle(!isToggled)
   }
 
   return (
-    <div>
+    <div
+      style={{
+        position: "fixed",
+        top: "10px",
+        left: "50%",
+        transform: "translateX(-50%)"
+      }}
+    >
       <label className="switch">
-        <input type="checkbox" checked={isToggled} onChange={handleToggle} />
+        <input type="checkbox" onChange={handleToggle} />
         <span className="slider round"></span>
       </label>
-
-      {/* Your existing Chat UI code */}
     </div>
   )
 }

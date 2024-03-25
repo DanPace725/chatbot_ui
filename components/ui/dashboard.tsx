@@ -68,64 +68,66 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
   }
 
   return (
-    <div className="flex size-full">
-      <CommandK />
+    <>
+      <div className="flex size-full">
+        <CommandK />
 
-      <Button
-        className={cn(
-          "absolute left-[4px] top-[50%] z-10 size-[32px] cursor-pointer"
-        )}
-        style={{
-          marginLeft: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
-          transform: showSidebar ? "rotate(180deg)" : "rotate(0deg)"
-        }}
-        variant="ghost"
-        size="icon"
-        onClick={handleToggleSidebar}
-      >
-        <IconChevronCompactRight size={24} />
-      </Button>
+        <Button
+          className={cn(
+            "absolute left-[4px] top-[50%] z-10 size-[32px] cursor-pointer"
+          )}
+          style={{
+            marginLeft: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
+            transform: showSidebar ? "rotate(180deg)" : "rotate(0deg)"
+          }}
+          variant="ghost"
+          size="icon"
+          onClick={handleToggleSidebar}
+        >
+          <IconChevronCompactRight size={24} />
+        </Button>
 
-      <div
-        className={cn("border-r-2 duration-200 dark:border-none")}
-        style={{
-          // Sidebar
-          minWidth: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
-          maxWidth: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
-          width: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px"
-        }}
-      >
-        {showSidebar && (
-          <Tabs
-            className="flex h-full"
-            value={contentType}
-            onValueChange={tabValue => {
-              setContentType(tabValue as ContentType)
-              router.replace(`${pathname}?tab=${tabValue}`)
-            }}
-          >
-            <SidebarSwitcher onContentTypeChange={setContentType} />
+        <div
+          className={cn("border-r-2 duration-200 dark:border-none")}
+          style={{
+            // Sidebar
+            minWidth: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
+            maxWidth: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
+            width: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px"
+          }}
+        >
+          {showSidebar && (
+            <Tabs
+              className="flex h-full"
+              value={contentType}
+              onValueChange={tabValue => {
+                setContentType(tabValue as ContentType)
+                router.replace(`${pathname}?tab=${tabValue}`)
+              }}
+            >
+              <SidebarSwitcher onContentTypeChange={setContentType} />
 
-            <Sidebar contentType={contentType} showSidebar={showSidebar} />
-          </Tabs>
-        )}
+              <Sidebar contentType={contentType} showSidebar={showSidebar} />
+            </Tabs>
+          )}
+        </div>
+
+        <div
+          className="bg-muted/50 flex grow flex-col"
+          onDrop={onFileDrop}
+          onDragOver={onDragOver}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
+        >
+          {isDragging ? (
+            <div className="flex h-full items-center justify-center bg-black/50 text-2xl text-white">
+              drop file here
+            </div>
+          ) : (
+            children
+          )}
+        </div>
       </div>
-
-      <div
-        className="bg-muted/50 flex grow flex-col"
-        onDrop={onFileDrop}
-        onDragOver={onDragOver}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-      >
-        {isDragging ? (
-          <div className="flex h-full items-center justify-center bg-black/50 text-2xl text-white">
-            drop file here
-          </div>
-        ) : (
-          children
-        )}
-      </div>
-    </div>
+    </>
   )
 }

@@ -12,12 +12,6 @@ export default function WorkspacePage() {
       <div className="flex h-screen w-full flex-col items-center justify-center">
         <div className="text-4xl">{selectedWorkspace?.name}</div>
       </div>
-      <div className="relative flex h-full flex-col items-center justify-center">
-        {/* Toggle Switch centered at the top */}
-        <div className="absolute inset-x-0 top-5 flex justify-center">
-          <ToggleSwitch />
-        </div>
-      </div>
     </>
   )
 }

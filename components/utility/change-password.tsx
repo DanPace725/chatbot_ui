@@ -1,3 +1,4 @@
+// e:/Coding/chatbot_ui/components/utility/change-password.tsx
 "use client"
 
 import { supabase } from "@/lib/supabase/browser-client"
