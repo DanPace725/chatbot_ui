@@ -2,7 +2,6 @@
 
 import { ChatbotUIContext } from "@/context/context"
 import { useContext } from "react"
-import { ToggleSwitch } from "@/components/utility/toggle-switch"
 
 export default function WorkspacePage() {
   const { selectedWorkspace } = useContext(ChatbotUIContext)
