@@ -158,3 +158,33 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+.toolbar {
+  background-color: #333;  /* Dark background for the toolbar */
+  padding: 10px;
+  border-bottom: 1px solid #444;  /* Slightly lighter border color for contrast */
+  color: #ccc;  /* Light text color for dark backgrounds */
+}
+
+.toolbar button {
+  background-color: #444;  /* Dark background for buttons */
+  border: 1px solid #555;  /* Slightly lighter border color for buttons */
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  color: #ccc;  /* Light text color for buttons */
+}
+
+.toolbar button.is-active,
+.toolbar button:hover {
+  background-color: #555;  /* Slightly lighter background for active/hover buttons */
+  color: #fff;  /* White text color for better visibility */
+}
+
+.editor-content {
+  min-height: 300px;
+  border: 1px solid #444;  /* Dark border color for the editor */
+  padding: 15px;
+  margin-top: 5px;
+  background-color: #222;  /* Dark background for the editor content */
+  color: #ccc;  /* Light text color for readability */
+}

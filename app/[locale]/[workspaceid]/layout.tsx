@@ -23,6 +23,7 @@ import Loading from "../loading"
 import { ToggleSwitch } from "@/components/utility/toggle-switch"
 import NotesComponent from "@/components/ui/notesComponent"
 import NotesPage from "@/components/ui/notesView"
+import TailwindEditor from "@/components/ui/editor"
 
 interface WorkspaceLayoutProps {
   children: ReactNode
