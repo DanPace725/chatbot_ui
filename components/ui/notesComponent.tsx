@@ -5,6 +5,10 @@ import { getProfileByUserId } from "@/db/profile"
 import { saveNotesAsMarkdown } from "@/db/files"
 import { getWorkspaceById } from "@/db/workspaces"
 import dynamic from "next/dynamic"
+import { getPresetWorkspacesByWorkspaceId } from "@/db/presets"
+import { getPromptWorkspacesByWorkspaceId } from "@/db/prompts"
+import { ChatbotUIContext } from "@/context/context"
+import { useParams } from "next/navigation"
 
 const Editor = dynamic(() => import("./editor"), { ssr: false })
 
@@ -13,7 +17,8 @@ const NotesComponent: React.FC = () => {
   const [content, setContent] = useState("")
   const [markdownContent, setMarkdownContent] = useState("")
   const [userId, setUserId] = useState<string>("")
-  const [workspaceId, setWorkspaceId] = useState<string>("")
+  const params = useParams()
+  const workspaceId = params.workspaceid as string
   const [embeddingsProvider, setEmbeddingsProvider] = useState<string>("")
 
   useEffect(() => {
@@ -34,14 +39,40 @@ const NotesComponent: React.FC = () => {
     })()
   }, [])
 
+  const { setSelectedWorkspace } = React.useContext(ChatbotUIContext)
+
   const fetchWorkspaceData = async (workspaceId: string) => {
     try {
       const workspace = await getWorkspaceById(workspaceId)
-      setWorkspaceId(workspace.id)
+      setSelectedWorkspace(workspace)
       setEmbeddingsProvider(workspace.embeddings_provider)
     } catch (error: any) {
       console.error("Failed to fetch workspace data:", error.message)
     }
+  }
+
+  const handleSaveNotes = async () => {
+    if (!workspaceId) {
+      console.error("Workspace ID is not set. Cannot save notes.")
+      return
+    }
+    try {
+      await saveNotesAsMarkdown(
+        title,
+        markdownContent,
+        userId,
+        workspaceId,
+        "local" as "openai" | "local"
+      )
+      // Handle success (e.g., show a success message)
+    } catch (error) {
+      console.error("Failed to save notes:", error)
+      // Handle error (e.g., show an error message)
+    }
+  }
+
+  const handleMarkdownChange = (markdown: string) => {
+    setMarkdownContent(markdown) // Update the markdownContent state with the new markdown
   }
 
   return (
@@ -59,21 +90,13 @@ const NotesComponent: React.FC = () => {
               onChange={e => setTitle(e.target.value)}
             />
           </div>
-          <Editor />
+          <Editor onMarkdownChange={handleMarkdownChange} />
         </div>
       </div>
       <div className="flex justify-center py-2">
         <button
           className="bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded px-4 py-2 font-bold"
-          onClick={() =>
-            saveNotesAsMarkdown(
-              title,
-              markdownContent,
-              userId,
-              workspaceId,
-              "local" as "openai" | "local"
-            )
-          }
+          onClick={handleSaveNotes}
         >
           Save
         </button>

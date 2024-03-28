@@ -1,13 +1,21 @@
-"use client" // this registers <Editor> as a Client Component
+"use client"
 import { BlockNoteView, useCreateBlockNote } from "@blocknote/react"
 import "@blocknote/core/fonts/inter.css"
 import "@blocknote/react/style.css"
+import { useEffect } from "react"
 
-// Our <Editor> component we can reuse later
-export default function Editor() {
-  // Creates a new editor instance.
+// Define an interface for the props of the Editor component
+interface EditorProps {
+  onMarkdownChange: (markdown: string) => void
+}
+
+export default function Editor({ onMarkdownChange }: EditorProps) {
   const editor = useCreateBlockNote()
 
-  // Renders the editor instance using a React component.
-  return <BlockNoteView editor={editor} />
+  const handleEditorChange = async () => {
+    const markdown = await editor.blocksToMarkdownLossy(editor.document)
+    onMarkdownChange(markdown)
+  }
+
+  return <BlockNoteView editor={editor} onChange={handleEditorChange} />
 }
