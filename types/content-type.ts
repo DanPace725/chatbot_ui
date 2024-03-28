@@ -1,13 +1,9 @@
-export type ContentType =
-  | "chats"
-  //| "presets"
-  | "prompts"
-  | "files"
-  | "collections"
+export type ContentType = "chats" | "prompts" | "files" | "collections"
 {
   /*
   "assistants"
   "models"
   "tools" 
   */
+  //| "presets"
 }
