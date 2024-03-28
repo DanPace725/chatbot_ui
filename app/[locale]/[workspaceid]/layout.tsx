@@ -17,6 +17,7 @@ import { convertBlobToBase64 } from "@/lib/blob-to-b64"
 import { supabase } from "@/lib/supabase/browser-client"
 import { LLMID } from "@/types"
 import { useParams, useRouter } from "next/navigation"
+//import { useRouter } from "next/router"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import Loading from "../loading"
 
@@ -32,7 +33,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
 
   const {
     setChatSettings,
-    setAssistants,
+    //setAssistants,
     setAssistantImages,
     setChats,
     setCollections,
@@ -40,9 +41,9 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setFiles,
     setPresets,
     setPrompts,
-    setTools,
-    setModels,
-    selectedWorkspace,
+    //setTools,
+    //setModels,
+    //selectedWorkspace,
     setSelectedWorkspace,
     setSelectedChat,
     setChatMessages,
@@ -93,7 +94,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     const workspace = await getWorkspaceById(workspaceId)
     setSelectedWorkspace(workspace)
 
-    const assistantData = await getAssistantWorkspacesByWorkspaceId(workspaceId)
+    /*const assistantData = await getAssistantWorkspacesByWorkspaceId(workspaceId)
     setAssistants(assistantData.assistants)
 
     for (const assistant of assistantData.assistants) {
@@ -128,7 +129,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
           }
         ])
       }
-    }
+    }*/
 
     const chats = await getChatsByWorkspaceId(workspaceId)
     setChats(chats)
@@ -149,11 +150,11 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     const promptData = await getPromptWorkspacesByWorkspaceId(workspaceId)
     setPrompts(promptData.prompts)
 
-    const toolData = await getToolWorkspacesByWorkspaceId(workspaceId)
+    /*const toolData = await getToolWorkspacesByWorkspaceId(workspaceId)
     setTools(toolData.tools)
 
     const modelData = await getModelWorkspacesByWorkspaceId(workspaceId)
-    setModels(modelData.models)
+    setModels(modelData.models)*/
 
     setChatSettings({
       model: (workspace?.default_model || "gpt-4-1106-preview") as LLMID,

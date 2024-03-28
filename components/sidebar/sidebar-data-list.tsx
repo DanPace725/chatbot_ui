@@ -38,10 +38,10 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     setPresets,
     setPrompts,
     setFiles,
-    setCollections,
-    setAssistants,
+    setCollections
+    /*setAssistants,
     setTools,
-    setModels
+    setModels*/
   } = useContext(ChatbotUIContext)
 
   const divRef = useRef<HTMLDivElement>(null)
@@ -57,8 +57,10 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
       case "chats":
         return <ChatItem key={item.id} chat={item as Tables<"chats">} />
 
-      case "presets":
-        return <PresetItem key={item.id} preset={item as Tables<"presets">} />
+        {
+          /*case "presets":
+    return <PresetItem key={item.id} preset={item as Tables<"presets">} />*/
+        }
 
       case "prompts":
         return <PromptItem key={item.id} prompt={item as Tables<"prompts">} />
@@ -74,7 +76,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
           />
         )
 
-      case "assistants":
+      /*case "assistants":
         return (
           <AssistantItem
             key={item.id}
@@ -86,7 +88,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
         return <ToolItem key={item.id} tool={item as Tables<"tools">} />
 
       case "models":
-        return <ModelItem key={item.id} model={item as Tables<"models">} />
+        return <ModelItem key={item.id} model={item as Tables<"models">} /> */
 
       default:
         return null
@@ -137,10 +139,10 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     presets: updatePreset,
     prompts: updatePrompt,
     files: updateFile,
-    collections: updateCollection,
-    assistants: updateAssistant,
+    collections: updateCollection
+    /*assistants: updateAssistant,
     tools: updateTool,
-    models: updateModel
+    models: updateModel*/
   }
 
   const stateUpdateFunctions = {
@@ -148,10 +150,10 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     presets: setPresets,
     prompts: setPrompts,
     files: setFiles,
-    collections: setCollections,
-    assistants: setAssistants,
+    collections: setCollections
+    /*assistants: setAssistants,
     tools: setTools,
-    models: setModels
+    models: setModels*/
   }
 
   const updateFolder = async (itemId: string, folderId: string | null) => {

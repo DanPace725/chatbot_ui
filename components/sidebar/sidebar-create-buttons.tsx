@@ -27,12 +27,12 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
   const { handleNewChat } = useChatHandler()
 
   const [isCreatingPrompt, setIsCreatingPrompt] = useState(false)
-  const [isCreatingPreset, setIsCreatingPreset] = useState(false)
+  //const [isCreatingPreset, setIsCreatingPreset] = useState(false)
   const [isCreatingFile, setIsCreatingFile] = useState(false)
   const [isCreatingCollection, setIsCreatingCollection] = useState(false)
-  const [isCreatingAssistant, setIsCreatingAssistant] = useState(false)
+  /*const [isCreatingAssistant, setIsCreatingAssistant] = useState(false)
   const [isCreatingTool, setIsCreatingTool] = useState(false)
-  const [isCreatingModel, setIsCreatingModel] = useState(false)
+  const [isCreatingModel, setIsCreatingModel] = useState(false)*/
 
   const handleCreateFolder = async () => {
     if (!profile) return
@@ -55,10 +55,10 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
           handleNewChat()
         }
 
-      case "presets":
+      /*case "presets":
         return async () => {
           setIsCreatingPreset(true)
-        }
+        }*/
 
       case "prompts":
         return async () => {
@@ -75,7 +75,7 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
           setIsCreatingCollection(true)
         }
 
-      case "assistants":
+      /*case "assistants":
         return async () => {
           setIsCreatingAssistant(true)
         }
@@ -88,7 +88,7 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
       case "models":
         return async () => {
           setIsCreatingModel(true)
-        }
+        }*/
 
       default:
         break
@@ -117,12 +117,12 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
         />
       )}
 
-      {isCreatingPreset && (
+      {/*{isCreatingPreset && (
         <CreatePreset
           isOpen={isCreatingPreset}
           onOpenChange={setIsCreatingPreset}
         />
-      )}
+)}*/}
 
       {isCreatingFile && (
         <CreateFile isOpen={isCreatingFile} onOpenChange={setIsCreatingFile} />
@@ -135,7 +135,7 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
         />
       )}
 
-      {isCreatingAssistant && (
+      {/*{isCreatingAssistant && (
         <CreateAssistant
           isOpen={isCreatingAssistant}
           onOpenChange={setIsCreatingAssistant}
@@ -151,7 +151,7 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
           isOpen={isCreatingModel}
           onOpenChange={setIsCreatingModel}
         />
-      )}
+      )} */}
     </div>
   )
 }

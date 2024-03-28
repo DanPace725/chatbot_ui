@@ -1,3 +1,4 @@
+// e:/Coding/chatbot_ui/app/[locale]/login/password/page.tsx
 "use client"
 
 import { ChangePassword } from "@/components/utility/change-password"
