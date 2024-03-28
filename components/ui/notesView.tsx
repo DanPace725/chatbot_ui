@@ -14,7 +14,6 @@ export default function NotesPage() {
     <>
       <div>
         <NotesComponent />
-        <ToggleSwitch onToggle={handleToggle} />
       </div>
     </>
   )

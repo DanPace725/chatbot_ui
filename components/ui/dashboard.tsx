@@ -12,6 +12,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { FC, useState } from "react"
 import { useSelectFileHandler } from "../chat/chat-hooks/use-select-file-handler"
 import { CommandK } from "../utility/command-k"
+import NotesComponent from "./notesComponent" // Adjust the import path as necessary
+import { ToggleSwitch } from "@/components/utility/toggle-switch"
 
 export const SIDEBAR_WIDTH = 350
 
@@ -66,6 +68,11 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
   const handleToggleSidebar = () => {
     setShowSidebar(prevState => !prevState)
     localStorage.setItem("showSidebar", String(!showSidebar))
+  }
+  const [showNotes, setShowNotes] = useState(false)
+
+  const handleToggle = (toggled: boolean) => {
+    setShowNotes(toggled)
   }
 
   return (
@@ -124,11 +131,14 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
             <div className="flex h-full items-center justify-center bg-black/50 text-2xl text-white">
               drop file here
             </div>
+          ) : showNotes ? (
+            <NotesComponent />
           ) : (
             children
           )}
         </div>
       </div>
+      <ToggleSwitch onToggle={handleToggle} />
     </>
   )
 }

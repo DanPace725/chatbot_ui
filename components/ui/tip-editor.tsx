@@ -4,8 +4,8 @@ import StarterKit from "@tiptap/starter-kit"
 import BulletList from "@tiptap/extension-bullet-list"
 import ListItem from "@tiptap/extension-list-item"
 import Blockquote from "@tiptap/extension-blockquote"
-
 import { Heading } from "@tiptap/extension-heading"
+import ReactMarkdown from "react-markdown"
 
 const NoteEditor = () => {
   const editor = useEditor({

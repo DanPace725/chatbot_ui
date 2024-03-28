@@ -20,10 +20,6 @@ import { useParams, useRouter } from "next/navigation"
 //import { useRouter } from "next/router"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import Loading from "../loading"
-import { ToggleSwitch } from "@/components/utility/toggle-switch"
-import NotesComponent from "@/components/ui/notesComponent"
-import NotesPage from "@/components/ui/notesView"
-import TailwindEditor from "@/components/ui/editor"
 
 interface WorkspaceLayoutProps {
   children: ReactNode
@@ -62,7 +58,6 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   } = useContext(ChatbotUIContext)
 
   const [loading, setLoading] = useState(true)
-  const [showNotes, setShowNotes] = useState(false)
 
   useEffect(() => {
     ;(async () => {
@@ -178,18 +173,9 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setLoading(false)
   }
 
-  const handleToggle = (toggled: boolean) => {
-    setShowNotes(toggled)
-  }
-
   if (loading) {
     return <Loading />
   }
 
-  return (
-    <>
-      {showNotes ? <NotesPage /> : <Dashboard>{children}</Dashboard>}
-      <ToggleSwitch onToggle={handleToggle} />
-    </>
-  )
+  return <Dashboard>{children}</Dashboard>
 }

@@ -291,3 +291,35 @@ export const deleteFileWorkspace = async (
 
   return true
 }
+// New function to save notes as markdown
+export const saveNotesAsMarkdown = async (
+  title: string,
+  content: string,
+  userId: string,
+  workspaceId: string,
+  embeddingsProvider: "openai" | "local"
+) => {
+  const markdownContent = `# ${title}\n\n${content}`
+  const blob = new Blob([markdownContent], { type: "text/markdown" })
+  const file = new File([blob], `${title}.md`, { type: "text/markdown" })
+
+  // Prepare the file record for insertion
+  // Inside the saveNotesAsMarkdown function
+  const fileRecord: TablesInsert<"files"> = {
+    name: `${title}.md`,
+    user_id: userId,
+    description: "Markdown file saved from notes", // Example description
+    file_path: "", // This will be updated after the file is uploaded
+    size: blob.size,
+    tokens: 0, // Set this according to your application's logic, if applicable
+    type: "text/markdown" // MIME type for markdown files
+    // Add any other fields required by your schema
+  }
+  // Use the existing function to handle file creation based on extension
+  return await createFileBasedOnExtension(
+    file,
+    fileRecord,
+    workspaceId,
+    embeddingsProvider
+  )
+}
